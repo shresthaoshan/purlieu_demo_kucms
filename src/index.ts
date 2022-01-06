@@ -29,13 +29,13 @@ server.on("request", (req, res) => {
 		return;
 	}
 	// check if the path exists in specified valid method pool
-	if (!(method_paths as any)[req.url]) {
+	if (!method_paths[req.url]) {
 		res.statusCode = 404;
 		res.end();
 		return;
 	}
 	// trigger the respective listener
-	(method_paths as any)[req.url](req, res);
+	method_paths[req.url](req, res);
 });
 
 server.listen(process.env.PORT, 600, () => console.log("Server Listening..."));

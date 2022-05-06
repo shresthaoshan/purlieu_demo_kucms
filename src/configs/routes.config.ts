@@ -1,5 +1,6 @@
 import { RequestListener } from "http";
 import { onPayment } from "../listeners/webhooks/payment";
+import { default as database } from "../utils/database.utils";
 
 export interface METHOD_LISTENERS {
 	[path: string]: RequestListener;
@@ -11,11 +12,25 @@ export interface Routes {
 	PUT: METHOD_LISTENERS;
 }
 
+const home: RequestListener = (req, res) => {
+	res.write("Hello, world!");
+	res.end();
+};
+const list: RequestListener = async (req, res) => {
+	const _l = await database.listRecords();
+	res.setHeader("Content-Type", "application/json");
+	res.write(JSON.stringify(_l));
+	res.end();
+};
+
 const routes: Routes = {
 	POST: {
 		"/payment": onPayment,
 	},
-	GET: {},
+	GET: {
+		"/": home,
+		"/list": list,
+	},
 	PUT: {},
 };
 

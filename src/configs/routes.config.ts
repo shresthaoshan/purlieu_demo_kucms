@@ -12,11 +12,11 @@ export interface Routes {
 	PUT: METHOD_LISTENERS;
 }
 
-const home: RequestListener = (req, res) => {
+const home: RequestListener = (_, res) => {
 	res.write("Hello, world!");
 	res.end();
 };
-const list: RequestListener = async (req, res) => {
+const list: RequestListener = async (_, res) => {
 	const _l = await database.listRecords();
 	res.setHeader("Content-Type", "application/json");
 	res.write(JSON.stringify(_l));

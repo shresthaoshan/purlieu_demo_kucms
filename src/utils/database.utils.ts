@@ -26,7 +26,7 @@ const updateAmount = async (id: string, amount: number) => {
 	if (recordIndex < 0) return;
 
 	content[recordIndex].amount += amount;
-	writeFile(filepath, JSON.stringify(content), (err) => {});
+	writeFile(filepath, JSON.stringify(content), (_) => {});
 };
 
 const listRecords = async () => {
